@@ -1,17 +1,25 @@
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 
 module.exports = {
-  entry: './src/app.js',
+  entry: {
+    js: './src/app.js',
+    css: './src/main.css'
+  },
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'public')
   },
   module: {
-    rules: [
+    loaders: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader'
+      },
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('css-loader!postcss-loader')
       }
     ]
   },
@@ -22,7 +30,16 @@ module.exports = {
     stats: {
       version: false,
       hash: false,
-      chunkModules: false,
+      chunkModules: false
     }
-  }
+  },
+  plugins: [
+    new ExtractTextPlugin('bundle.css')
+  ],
+  postcss: [
+    require('postcss-easy-import')({
+      glob: true
+    })
+  ],
+  devtool: 'source-map'
 };
