@@ -4,7 +4,7 @@ const path = require('path');
 module.exports = {
   entry: {
     js: './src/app.js',
-    css: './src/main.css'
+    css: './src/app.css'
   },
   output: {
     filename: 'bundle.js',
