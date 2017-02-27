@@ -18,8 +18,12 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract('css-loader!postcss-loader')
+        test: /\.woff2?$|\.ttf$|\.eot$|\.svg$/,
+        loader: 'file-loader'
+      },
+      {
+        test: /\.css$|\.scss$/,
+        loader: ExtractTextPlugin.extract('css-loader!postcss-loader!sass-loader')
       }
     ]
   },

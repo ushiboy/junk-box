@@ -1,3 +1,8 @@
+public/*.woff2
+public/*.woff
+public/*.eot
+public/*.svg
+public/*.ttf
 public/bundle.js*
 public/bundle.css*
 
