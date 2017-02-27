@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "webpack"
+    "build": "flow check && webpack",
+    "test": "mocha --require test/setup.js --recursive test",
+    "mocha": "mocha --require test/setup.js"
   },
   "author": "ushiboy",
   "license": "MIT",
@@ -23,14 +25,22 @@
     "babel-plugin-transform-async-to-generator": "^6.22.0",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-preset-es2015": "^6.22.0",
+    "babel-preset-power-assert": "^1.0.0",
     "babel-preset-react": "^6.23.0",
+    "babel-register": "^6.23.0",
     "css-loader": "^0.26.2",
+    "enzyme": "^2.7.1",
     "eslint": "^3.16.1",
     "eslint-plugin-react": "^6.10.0",
     "extract-text-webpack-plugin": "1.0.1",
     "flow-bin": "^0.40.0",
+    "jsdom": "^9.11.0",
+    "mocha": "^3.2.0",
     "postcss-easy-import": "^2.0.0",
     "postcss-loader": "^1.3.2",
+    "power-assert": "^1.4.2",
+    "react-addons-test-utils": "^15.4.2",
+    "sinon": "^1.17.7",
     "webpack": "1.14.0",
     "webpack-dev-server": "1.16.3"
   }
