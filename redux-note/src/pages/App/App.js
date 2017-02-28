@@ -1,6 +1,5 @@
 /* @flow */
 import React from 'react';
-import Dashboard from '../Dashboard/Dashboard';
 import GlobalHeader from '../../components/GlobalHeader/GlobalHeader';
 
 export default class App extends React.Component {
@@ -12,7 +11,7 @@ export default class App extends React.Component {
           <GlobalHeader />
         </div>
         <div className="page-App-main">
-          <Dashboard />
+          {this.props.children}
         </div>
       </div>
     );
