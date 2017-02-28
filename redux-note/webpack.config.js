@@ -31,6 +31,7 @@ module.exports = {
     contentBase: './public',
     inline: true,
     port: 8080,
+    historyApiFallback: true,
     stats: {
       version: false,
       hash: false,
