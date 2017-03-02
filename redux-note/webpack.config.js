@@ -1,3 +1,4 @@
+const host = process.env.ALLOW_ALL ? '0.0.0.0' : '127.0.0.1';
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 
@@ -30,6 +31,7 @@ module.exports = {
   devServer: {
     contentBase: './public',
     inline: true,
+    host,
     port: 8080,
     historyApiFallback: true,
     stats: {
