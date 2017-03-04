@@ -5,11 +5,13 @@ export type Action<T> = {
   payload: T
 }
 
-export type Note = {
-  id: number,
-  text: string
+export type NewNote = {
+  title: string,
+  body: string
 }
 
-export type NotesResponse = {
-  notes: Array<Note>
+export type Note = {
+  id: number,
+  title: string,
+  body: string
 }

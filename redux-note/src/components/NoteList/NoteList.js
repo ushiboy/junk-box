@@ -1,5 +1,6 @@
 /* @flow */
 import React from 'react';
+import { Link } from 'react-router';
 import type { Note } from '../../types';
 
 type Props = {
@@ -11,9 +12,13 @@ export default class NoteList extends React.Component {
   props: Props;
 
   renderItem(note: Note) {
-    const { id, text } = note;
+    const { id, title } = note;
     return (
-      <li key={id}>{text}</li>
+      <li key={id}>
+        <Link to={`/notes/${id}/edit`}>
+          <span className="NoteList-title">{title}</span>
+        </Link>
+      </li>
     )
   };
 
