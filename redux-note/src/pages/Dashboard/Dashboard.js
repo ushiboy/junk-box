@@ -12,10 +12,16 @@ export class Dashboard extends React.Component {
   }
 
   render() {
-    const { notes } = this.props;
+    const { notes, children } = this.props;
+    const note = notes.find(n => n.id === Number(this.props.params.id));
     return (
-      <div className="page-Dashboard-main">
-        <NoteList notes={notes} />
+      <div className="page-Dashboard">
+        <div className="page-Dashboard-list">
+          <NoteList notes={notes} />
+        </div>
+        <div className="page-Dashboard-main">
+          {children ? React.cloneElement(children, { note }) : null }
+        </div>
       </div>
     );
   }
