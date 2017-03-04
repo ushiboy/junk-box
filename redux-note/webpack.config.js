@@ -34,6 +34,14 @@ module.exports = {
     host,
     port: 8080,
     historyApiFallback: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8181',
+        pathRewrite: {
+          '^/api' : ''
+        }
+      }
+    },
     stats: {
       version: false,
       hash: false,
