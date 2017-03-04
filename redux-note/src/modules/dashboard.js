@@ -1,6 +1,8 @@
 /* @flow */
 import type { Action, Note } from '../types';
 import * as webapi from '../utils/webapi';
+import { CREATE, UPDATE, DELETE } from './note';
+import type { NotePayload } from './note';
 
 export const FETCH = 'note/fetch/my';
 
@@ -8,9 +10,13 @@ export type DashboardState = {
   notes: Array<Note>
 }
 
-export type FetchPayload = {
+export type NotesPayload = {
   notes: Array<Note>
 }
+
+/**
+ * Reducer
+ */
 
 export function initState(): DashboardState {
   return {
@@ -18,25 +24,51 @@ export function initState(): DashboardState {
   };
 }
 
-function fetchNotes(state: DashboardState, action: Action<FetchPayload>): DashboardState {
+function fetchNotes(state: DashboardState, action: Action<NotesPayload>): DashboardState {
   return Object.assign({}, state, {
     notes: action.payload.notes
   });
 }
 
-export default function reducer(state: DashboardState = initState(), action: Action<*>): DashboardState {
+function createNote(state: DashboardState, action: Action<NotePayload>): DashboardState {
+  const { note } = action.payload;
+  return Object.assign({}, state, {
+    notes: [note, ...state.notes]
+  });
+}
+
+function updateNote(state: DashboardState, action: Action<NotePayload>):DashboardState {
+  const { note } = action.payload;
+  return Object.assign({}, state, {
+    notes: state.notes.map(n => {
+      return note.id === n.id ? Object.assign({}, n, note) : n;
+    })
+  });
+}
+
+export default function reducer(state: DashboardState = initState(), action: Action<any>): DashboardState {
   switch (action.type) {
     case FETCH:
       return fetchNotes(state, action);
+    case CREATE:
+      return createNote(state, action);
+    case UPDATE:
+      return updateNote(state, action);
     default:
       return state;
   }
 }
 
-export async function fetchMyNotes(): Promise<Action<FetchPayload>> {
-  const payload = await webapi.fetchNotes();
+/**
+ * Action
+ */
+
+export async function fetchMyNotes(): Promise<Action<NotesPayload>> {
+  const notes = await webapi.fetchMyNotes();
   return {
     type: FETCH,
-    payload
+    payload: {
+      notes
+    }
   };
 }
