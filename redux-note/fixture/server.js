@@ -48,9 +48,9 @@ class Notes {
 }
 
 const notes = new Notes();
-notes.create({ title: 'Test 1', text: 'test 1' });
-notes.create({ title: 'Test 2', text: 'test 2' });
-notes.create({ title: 'Test 3', text: 'test 3' });
+notes.create({ title: 'Test 1', body: 'test 1' });
+notes.create({ title: 'Test 2', body: 'test 2' });
+notes.create({ title: 'Test 3', body: 'test 3' });
 
 const app = express();
 app.use(bodyParser());
