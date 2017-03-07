@@ -56,7 +56,7 @@ const app = express();
 app.use(bodyParser());
 
 app.get('/notes', (req, res) => {
-  res.setHeader('Content-Type', 'application/json charset=utf-8');
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
   res.write(JSON.stringify({
     notes: notes.getAll()
   }));
@@ -64,7 +64,7 @@ app.get('/notes', (req, res) => {
 });
 
 app.post('/notes', (req, res) => {
-  res.setHeader('Content-Type', 'application/json charset=utf-8');
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
   const newNote = req.body;
   res.write(JSON.stringify(notes.create(newNote)));
   res.statusCode = 201;
@@ -73,7 +73,7 @@ app.post('/notes', (req, res) => {
 
 app.get('/notes/:id', (req, res) => {
   const id = Number(req.params.id);
-  res.setHeader('Content-Type', 'application/json charset=utf-8');
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
   try {
     res.write(JSON.stringify(notes.get(id)));
   } catch(e) {
@@ -85,7 +85,7 @@ app.get('/notes/:id', (req, res) => {
 app.put('/notes/:id', (req, res) => {
   const id = Number(req.params.id);
   const note = req.body;
-  res.setHeader('Content-Type', 'application/json charset=utf-8');
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
   try {
     res.write(JSON.stringify(notes.update(id, note)));
   } catch(e) {
@@ -96,7 +96,7 @@ app.put('/notes/:id', (req, res) => {
 
 app.delete('/notes/:id', (req, res) => {
   const id = Number(req.params.id);
-  res.setHeader('Content-Type', 'application/json charset=utf-8');
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
   notes.remove(id);
   res.statusCode = 204;
   res.end();

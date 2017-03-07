@@ -16,7 +16,7 @@ export async function createNote(): Promise<Note> {
   return fetch('/api/notes', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json charset=utf-8'
+      'Content-Type': 'application/json; charset=utf-8'
     },
     body: JSON.stringify({
       title: 'Untitled',
@@ -31,7 +31,7 @@ export async function updateNote(note: Note): Promise<Note> {
   return fetch(`/api/notes/${id}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json charset=utf-8'
+      'Content-Type': 'application/json; charset=utf-8'
     },
     body: JSON.stringify({
       title,
@@ -46,7 +46,7 @@ export async function deleteNote(note: Note) {
   return fetch(`/api/notes/${id}`, {
     method: 'DELETE',
     headers: {
-      'Content-Type': 'application/json charset=utf-8'
+      'Content-Type': 'application/json; charset=utf-8'
     }
   });
 }
