@@ -81,3 +81,13 @@ export async function update(note: Note): Promise<Action<NotePayload>>{
     }
   };
 }
+
+export async function remove(note: Note): Promise<Action<NotePayload>>{
+  await webapi.deleteNote(note);
+  return {
+    type: DELETE,
+    payload: {
+      note
+    }
+  };
+}
