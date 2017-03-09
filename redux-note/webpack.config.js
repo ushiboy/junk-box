@@ -54,7 +54,8 @@ module.exports = {
   postcss: [
     require('postcss-easy-import')({
       glob: true
-    })
+    }),
+    require('postcss-nested')
   ],
   devtool: 'source-map'
 };
