@@ -1,8 +1,10 @@
 /* @flow */
+import { connect } from 'react-redux';
 import React from 'react';
 import type { Note } from '../../../types';
 import Button from '../../../components/Button/Button';
-import { update } from '../../../modules/note';
+import NoteBody from '../../../components/NoteBody/NoteBody';
+import { update, remove } from '../../../modules/note';
 
 type Props = {
   note: Note,
@@ -16,7 +18,7 @@ type State = {
   note: Note
 }
 
-export default class NoteEdit extends React.Component {
+export class NoteEdit extends React.Component {
 
   props: Props;
 
@@ -43,9 +45,11 @@ export default class NoteEdit extends React.Component {
     const { title, body } = note;
     return (
       <div className="page-NoteEdit">
-        <div className="page-NoteEdit-header">
-          <input className="form-control" type="text" name="title" value={title} onChange={this.onChangeField.bind(this)} />
-          <div className="page-NoteEdit-buttons">
+        <div className="page-NoteEdit-header row">
+          <div className="col-md-9">
+            <input className="form-control" type="text" name="title" value={title} onChange={this.onChangeField.bind(this)} />
+          </div>
+          <div className="page-NoteEdit-buttons col-md-3">
             <Button onClick={this.handleSave.bind(this)}>Save</Button>
             <Button onClick={this.handleDelete.bind(this)}>Delete</Button>
           </div>
@@ -55,7 +59,7 @@ export default class NoteEdit extends React.Component {
           <textarea className="form-control" id="note-body" name="body" value={body} onChange={this.onChangeField.bind(this)}></textarea>
         </div>
         <div className="page-NoteEdit-preview">
-
+          <NoteBody body={body} />
         </div>
       </div>
     );
@@ -75,6 +79,10 @@ export default class NoteEdit extends React.Component {
   }
 
   handleDelete() {
+    this.props.dispatch(remove(this.state.note));
   }
 
 }
+
+const ConnectedNoteEdit = connect()(NoteEdit);
+export default ConnectedNoteEdit;

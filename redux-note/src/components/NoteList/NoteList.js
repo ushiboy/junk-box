@@ -14,11 +14,9 @@ export default class NoteList extends React.Component {
   renderItem(note: Note) {
     const { id, title } = note;
     return (
-      <li key={id}>
-        <Link to={`/notes/${id}/edit`}>
-          <span className="NoteList-title">{title}</span>
-        </Link>
-      </li>
+      <Link to={`/notes/${id}/edit`} key={id} className="list-group-item">
+        <span className="NoteList-title">{title}</span>
+      </Link>
     )
   };
 
@@ -27,8 +25,7 @@ export default class NoteList extends React.Component {
 
     return (
       <div className="NoteList">
-        <h1>Note List</h1>
-        <ul>
+        <ul className="list-group">
           {items}
         </ul>
       </div>

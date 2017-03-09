@@ -10,7 +10,7 @@ export default class App extends React.Component {
         <div className="page-App-header">
           <GlobalHeader />
         </div>
-        <div className="page-App-main">
+        <div className="page-App-main container-fluid">
           {this.props.children}
         </div>
       </div>

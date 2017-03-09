@@ -29,8 +29,8 @@ export class Dashboard extends React.Component {
     const { notes, children, params } = this.props;
     const note = notes.find(n => n.id === Number(params.id));
     return (
-      <div className="page-Dashboard">
-        <div className="page-Dashboard-list">
+      <div className="page-Dashboard row">
+        <div className="page-Dashboard-list col-xs-4">
           <div className="page-Dashboard-listHeader">
             <Button onClick={this.handleClickNew.bind(this)}>New Note</Button>
           </div>
@@ -38,7 +38,7 @@ export class Dashboard extends React.Component {
             <NoteList notes={notes} />
           </div>
         </div>
-        <div className="page-Dashboard-main">
+        <div className="page-Dashboard-main col-xs-8">
           {children ? React.cloneElement(children, { note }) : null }
         </div>
       </div>
