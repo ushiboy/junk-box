@@ -32,12 +32,14 @@ class Notes {
 
   create(note) {
     const id = this._idSeed++;
+    note.updated = new Date();
     this.data.set(id, note);
     return Object.assign({}, note, { id });
   }
 
   update(id, note) {
     const existNote = this.get(id);
+    note.updated = new Date();
     this.data.set(id, note);
     return Object.assign({}, note, { id });
   }
