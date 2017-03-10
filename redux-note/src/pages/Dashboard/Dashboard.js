@@ -10,7 +10,7 @@ import type { Note, Action } from '../../types';
 type Props = {
   notes: Array<Note>,
   params: {
-    id: number
+    id: string
   },
   dispatch: (action: any) => any,
   children: React.Element<any>
@@ -30,15 +30,15 @@ export class Dashboard extends React.Component {
     const note = notes.find(n => n.id === Number(params.id));
     return (
       <div className="page-Dashboard row">
-        <div className="page-Dashboard-list col-xs-4">
+        <div className="page-Dashboard-list col-xs-3">
           <div className="page-Dashboard-listHeader">
             <Button onClick={this.handleClickNew.bind(this)}>New Note</Button>
           </div>
           <div role="navigation">
-            <NoteList notes={notes} />
+            <NoteList notes={notes} selectedNoteId={params.id} />
           </div>
         </div>
-        <div className="page-Dashboard-main col-xs-8">
+        <div className="page-Dashboard-main col-xs-9">
           {children ? React.cloneElement(children, { note }) : null }
         </div>
       </div>

@@ -3,6 +3,7 @@ import type { Action, Note } from '../types';
 import * as webapi from '../utils/webapi';
 import { CREATE, UPDATE, DELETE } from './note';
 import type { NotePayload } from './note';
+import moment from 'moment';
 
 export const FETCH = 'note/fetch/my';
 
@@ -26,7 +27,13 @@ export function initState(): DashboardState {
 
 function fetchNotes(state: DashboardState, action: Action<NotesPayload>): DashboardState {
   return Object.assign({}, state, {
-    notes: action.payload.notes
+    notes: action.payload.notes.map(n => {
+      const { id, title, body, updated } = n;
+      return {
+        id, title, body,
+        updated: moment(updated, moment.ISO_8601).toDate()
+      };
+    })
   });
 }
 
@@ -46,6 +53,15 @@ function updateNote(state: DashboardState, action: Action<NotePayload>):Dashboar
   });
 }
 
+function removeNote(state: DashboardState, action: Action<NotePayload>):DashboardState {
+  const { note } = action.payload;
+  return Object.assign({}, state, {
+    notes: state.notes.filter(n => {
+      return note.id !== n.id;
+    })
+  });
+}
+
 export default function reducer(state: DashboardState = initState(), action: Action<any>): DashboardState {
   switch (action.type) {
     case FETCH:
@@ -54,6 +70,8 @@ export default function reducer(state: DashboardState = initState(), action: Act
       return createNote(state, action);
     case UPDATE:
       return updateNote(state, action);
+    case DELETE:
+      return removeNote(state, action);
     default:
       return state;
   }

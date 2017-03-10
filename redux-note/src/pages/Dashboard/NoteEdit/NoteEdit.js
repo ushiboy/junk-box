@@ -9,7 +9,7 @@ import { update, remove } from '../../../modules/note';
 type Props = {
   note: Note,
   params: {
-    id: number
+    id: string
   },
   dispatch: (action: any) => any
 }
@@ -46,12 +46,13 @@ export class NoteEdit extends React.Component {
     return (
       <div className="page-NoteEdit">
         <div className="page-NoteEdit-header row">
-          <div className="col-md-9">
+          <div className="col-xs-8">
             <input className="form-control" type="text" name="title" value={title} onChange={this.onChangeField.bind(this)} />
           </div>
-          <div className="page-NoteEdit-buttons col-md-3">
+          <div className="page-NoteEdit-buttons col-xs-4">
             <Button onClick={this.handleSave.bind(this)}>Save</Button>
             <Button onClick={this.handleDelete.bind(this)}>Delete</Button>
+            { /* <Button onClick={this.handleShow.bind(this)}>Show</Button> */}
           </div>
         </div>
         <div className="page-NoteEdit-body">
@@ -80,6 +81,10 @@ export class NoteEdit extends React.Component {
 
   handleDelete() {
     this.props.dispatch(remove(this.state.note));
+  }
+
+  handleShow() {
+
   }
 
 }

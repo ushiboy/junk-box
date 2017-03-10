@@ -13,5 +13,6 @@ export type NewNote = {
 export type Note = {
   id: number,
   title: string,
-  body: string
+  body: string,
+  updated: Date
 }
