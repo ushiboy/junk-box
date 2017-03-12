@@ -1,6 +1,7 @@
 /* @flow */
 import { connect } from 'react-redux';
 import React from 'react';
+import { browserHistory } from 'react-router';
 import type { Note } from '../../../types';
 import Button from '../../../components/Button/Button';
 import NoteBody from '../../../components/NoteBody/NoteBody';
@@ -52,7 +53,7 @@ export class NoteEdit extends React.Component {
           <div className="page-NoteEdit-buttons col-xs-4">
             <Button onClick={this.handleSave.bind(this)}>Save</Button>
             <Button onClick={this.handleDelete.bind(this)}>Delete</Button>
-            { /* <Button onClick={this.handleShow.bind(this)}>Show</Button> */}
+            <Button onClick={this.handleShow.bind(this)}>Show</Button>
           </div>
         </div>
         <div className="page-NoteEdit-body">
@@ -84,7 +85,7 @@ export class NoteEdit extends React.Component {
   }
 
   handleShow() {
-
+    browserHistory.push(`/notes/${this.state.note.id}`);
   }
 
 }
