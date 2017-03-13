@@ -49,10 +49,38 @@ class Notes {
   }
 }
 
+class Stars {
+
+  constructor(note) {
+    this.data = new Set();
+    this.note = note;
+  }
+
+  create(id) {
+    this.data.add(id);
+  }
+
+  delete(id) {
+    this.data.delete(id);
+  }
+
+  getAll() {
+    const stars = [];
+    this.data.forEach(id => {
+      stars.push(this.note.get(id));
+    });
+    return stars;
+  }
+
+}
+
 const notes = new Notes();
 notes.create({ title: 'Test 1', body: 'test 1' });
 notes.create({ title: 'Test 2', body: 'test 2' });
 notes.create({ title: 'Test 3', body: 'test 3' });
+const stars = new Stars(notes);
+stars.create(1);
+
 
 const app = express();
 app.use(bodyParser());
@@ -103,5 +131,14 @@ app.delete('/notes/:id', (req, res) => {
   res.statusCode = 204;
   res.end();
 });
+
+app.get('/stars', (req, res) => {
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
+  res.write(JSON.stringify({
+    notes: stars.getAll()
+  }));
+  res.end();
+});
+
 
 app.listen(port);

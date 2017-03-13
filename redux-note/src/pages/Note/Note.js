@@ -2,6 +2,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import NoteBody from '../../components/NoteBody/NoteBody';
+import NoteHeader from '../../components/NoteHeader/NoteHeader';
 import type { Note } from '../../types';
 import { fetch } from '../../modules/note';
 
@@ -29,9 +30,14 @@ export class NotePage extends React.Component {
 
     return (
       <div className="page-Note">
+        <NoteHeader note={note} onChangeStar={this.handleChangeStar.bind(this)} />
         <NoteBody body={body} />
       </div>
     );
+  }
+
+  handleChangeStar() {
+
   }
 
 }

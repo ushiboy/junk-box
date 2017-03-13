@@ -50,3 +50,9 @@ export async function deleteNote(note: Note) {
     }
   });
 }
+
+export async function fetchStarredNotes(): Promise<Array<Note>> {
+  return fetch('/api/stars')
+    .then(res => res.json())
+    .then(json => json.notes);
+}
