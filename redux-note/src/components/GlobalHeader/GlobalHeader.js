@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 export default class GlobalHeader extends React.Component {
 
   render() {
+    const {pathname} = this.props.location;
     return (
       <nav className="navbar navbar-inverse navbar-fixed-top">
         <div className="container">
@@ -19,8 +20,8 @@ export default class GlobalHeader extends React.Component {
           </div>
           <div id="navbar" className="navbar-collapse collapse">
             <ul className="nav navbar-nav">
-              <li className="active"><Link to="/"><span className="glyphicon glyphicon-dashboard" aria-hidden="true"></span> Dashboard</Link></li>
-              <li><Link to="/starred">Starred</Link></li>
+              <li className={pathname === '/' ? 'active' : ''}><Link to="/"><span className="glyphicon glyphicon-dashboard" aria-hidden="true"></span> Dashboard</Link></li>
+              <li className={pathname === '/starred' ? 'active' : ''}><Link to="/starred">Starred</Link></li>
             </ul>
           </div>
         </div>

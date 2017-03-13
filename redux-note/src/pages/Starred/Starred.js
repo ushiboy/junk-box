@@ -1,12 +1,34 @@
 /* @flow */
+import { connect } from 'react-redux';
 import React from 'react';
+import { fetchStarred } from '../../modules/starred';
+import StarredNoteList from '../../components/StarredNoteList/StarredNoteList';
+import type { Note, Action } from '../../types';
 
-export default class Starred extends React.Component {
+type Props = {
+  notes: Array<Note>,
+  dispatch: (action: any) => any
+}
+
+export class Starred extends React.Component {
+
+  props: Props;
+
+  componentDidMount() {
+    this.props.dispatch(fetchStarred());
+  }
 
   render() {
+    const { notes } = this.props;
     return (
-      <h1>Starred</h1>
+      <div className="page-Stars">
+        <h1>Starred Notes</h1>
+        <StarredNoteList notes={notes} />
+      </div>
     );
   }
 
 }
+
+const ConnectedStarred = connect(({ starred }) => starred)(Starred);
+export default ConnectedStarred;
