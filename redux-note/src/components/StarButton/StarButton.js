@@ -16,16 +16,17 @@ export default class StarButton extends React.Component {
   renderUnstar() {
     return (
       <Button onClick={this.props.onChange.bind(this)}>
-        <span>Star</span>
+        <span>Unstar</span>
         <span className="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
       </Button>
     );
   }
 
   render() {
+    const { starred } = this.props;
     return (
       <span className="Star">
-        {this.renderStar()}
+        {starred ? this.renderUnstar() : this.renderStar()}
       </span>
     );
   }

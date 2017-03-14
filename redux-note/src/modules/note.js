@@ -7,6 +7,8 @@ export const FETCH = 'note/fetch';
 export const CREATE = 'note/create';
 export const UPDATE = 'note/update';
 export const DELETE = 'note/delete';
+export const CREATE_STAR = 'star/create';
+export const DELETE_STAR = 'star/delete';
 
 export type NoteState = {
   note: NewNote
@@ -38,12 +40,28 @@ function fetchedNote(state: NoteState, action: Action<NotePayload>): NoteState {
   return { note: action.payload.note }
 }
 
+function createdStar(state: NoteState, action: Action<NotePayload>): NoteState {
+  return {
+    note: Object.assign({}, state.note, { starred: true })
+  };
+}
+
+function removedStar(state: NoteState, action: Action<NotePayload>): NoteState {
+  return {
+    note: Object.assign({}, state.note, { starred: false })
+  };
+}
+
 export default function reducer(state: NoteState = initState(), action: Action<*>): NoteState {
   switch (action.type) {
     case BEFORE_FETCH:
       return beforeFetchNote(state, action);
     case FETCH:
       return fetchedNote(state, action);
+    case CREATE_STAR:
+      return createdStar(state, action);
+    case DELETE_STAR:
+      return removedStar(state, action);
   }
   return state
 }
@@ -86,6 +104,26 @@ export async function remove(note: Note): Promise<Action<NotePayload>>{
   await webapi.deleteNote(note);
   return {
     type: DELETE,
+    payload: {
+      note
+    }
+  };
+}
+
+export async function createStar(note: Note): Promise<Action<NotePayload>> {
+  const starredNote = await webapi.createStar(note);
+  return {
+    type: CREATE_STAR,
+    payload: {
+      note
+    }
+  };
+}
+
+export async function deleteStar(note: Note): Promise<Action<NotePayload>> {
+  const unstarredNote = await webapi.deleteStar(note);
+  return {
+    type: DELETE_STAR,
     payload: {
       note
     }

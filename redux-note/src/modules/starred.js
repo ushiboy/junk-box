@@ -56,4 +56,3 @@ export async function fetchStarred(): Promise<Action<NotesPayload>> {
     }
   };
 }
-
