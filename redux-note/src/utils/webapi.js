@@ -56,3 +56,25 @@ export async function fetchStarredNotes(): Promise<Array<Note>> {
     .then(res => res.json())
     .then(json => json.notes);
 }
+
+export async function createStar(note: Note): Promise<Note> {
+  const { id } = note;
+  return fetch(`/api/notes/${id}/star`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8'
+    }
+  })
+    .then(res => res.json());
+}
+
+export async function deleteStar(note: Note) {
+  const { id } = note;
+  return fetch(`/api/notes/${id}/star`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8'
+    }
+  });
+}
+

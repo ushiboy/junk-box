@@ -4,7 +4,7 @@ import React from 'react';
 import NoteBody from '../../components/NoteBody/NoteBody';
 import NoteHeader from '../../components/NoteHeader/NoteHeader';
 import type { Note } from '../../types';
-import { fetch } from '../../modules/note';
+import { fetch, createStar, deleteStar } from '../../modules/note';
 
 type Props = {
   note: Note,
@@ -37,7 +37,13 @@ export class NotePage extends React.Component {
   }
 
   handleChangeStar() {
-
+    const { note, dispatch } = this.props;
+    const { starred } = note;
+    if (starred) {
+      dispatch(deleteStar(note));
+    } else {
+      dispatch(createStar(note));
+    }
   }
 
 }

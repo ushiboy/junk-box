@@ -60,8 +60,12 @@ class Stars {
     this.data.add(id);
   }
 
-  delete(id) {
+  remove(id) {
     this.data.delete(id);
+  }
+
+  has(id) {
+    return this.data.has(id);
   }
 
   getAll() {
@@ -105,7 +109,10 @@ app.get('/notes/:id', (req, res) => {
   const id = Number(req.params.id);
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
   try {
-    res.write(JSON.stringify(notes.get(id)));
+    const note = notes.get(id);
+    res.write(JSON.stringify(Object.assign({
+      starred: stars.has(id)
+    }, note)));
   } catch(e) {
     res.statusCode = 404;
   }
@@ -139,6 +146,27 @@ app.get('/stars', (req, res) => {
   }));
   res.end();
 });
+
+app.post('/notes/:id/star', (req, res) => {
+  const id = Number(req.params.id);
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
+  try {
+    stars.create(id);
+    res.statusCode = 201;
+  } catch(e) {
+    res.statusCode = 400;
+  }
+  res.end();
+});
+
+app.delete('/notes/:id/star', (req, res) => {
+  const id = Number(req.params.id);
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
+  stars.remove(id);
+  res.statusCode = 204;
+  res.end();
+});
+
 
 
 app.listen(port);
