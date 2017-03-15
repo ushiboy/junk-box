@@ -111,7 +111,7 @@ export async function remove(note: Note): Promise<Action<NotePayload>>{
 }
 
 export async function createStar(note: Note): Promise<Action<NotePayload>> {
-  const starredNote = await webapi.createStar(note);
+  await webapi.createStar(note);
   return {
     type: CREATE_STAR,
     payload: {
@@ -121,7 +121,7 @@ export async function createStar(note: Note): Promise<Action<NotePayload>> {
 }
 
 export async function deleteStar(note: Note): Promise<Action<NotePayload>> {
-  const unstarredNote = await webapi.deleteStar(note);
+  await webapi.deleteStar(note);
   return {
     type: DELETE_STAR,
     payload: {
