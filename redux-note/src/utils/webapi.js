@@ -23,7 +23,13 @@ export async function createNote(): Promise<Note> {
       body: ''
     })
   })
-    .then(res => res.json());
+    .then(res => {
+      if (res.ok) {
+        return res.json()
+      } else {
+        throw new Error(`Bad Response. [${res.status}]`);
+      }
+    });
 }
 
 export async function updateNote(note: Note): Promise<Note> {
@@ -38,17 +44,28 @@ export async function updateNote(note: Note): Promise<Note> {
       body
     })
   })
-    .then(res => res.json());
+    .then(res => {
+      if (res.ok) {
+        return res.json()
+      } else {
+        throw new Error(`Bad Response. [${res.status}]`);
+      }
+    });
 }
 
-export async function deleteNote(note: Note) {
+export async function deleteNote(note: Note): Promise<> {
   const { id } = note;
   return fetch(`/api/notes/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json; charset=utf-8'
     }
-  });
+  })
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(`Bad Response. [${res.status}]`);
+      }
+    });
 }
 
 export async function fetchStarredNotes(): Promise<Array<Note>> {
@@ -57,7 +74,7 @@ export async function fetchStarredNotes(): Promise<Array<Note>> {
     .then(json => json.notes);
 }
 
-export async function createStar(note: Note): Promise<Note> {
+export async function createStar(note: Note): Promise<> {
   const { id } = note;
   return fetch(`/api/notes/${id}/star`, {
     method: 'POST',
@@ -65,16 +82,25 @@ export async function createStar(note: Note): Promise<Note> {
       'Content-Type': 'application/json; charset=utf-8'
     }
   })
-    .then(res => res.json());
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(`Bad Response. [${res.status}]`);
+      }
+    });
 }
 
-export async function deleteStar(note: Note) {
+export async function deleteStar(note: Note): Promise<> {
   const { id } = note;
   return fetch(`/api/notes/${id}/star`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json; charset=utf-8'
     }
-  });
+  })
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(`Bad Response. [${res.status}]`);
+      }
+    });
 }
 

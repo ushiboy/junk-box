@@ -14,5 +14,6 @@ export type Note = {
   id: number,
   title: string,
   body: string,
-  updated: Date
+  updated: Date,
+  starred?: boolean
 }
